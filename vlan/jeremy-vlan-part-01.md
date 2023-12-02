@@ -1,5 +1,6 @@
 # VLAN Part-01
-YouTube Video Link: [Here](https://www.youtube.com/watch?v=-tq7f3xtyLQ&list=PLxbwE86jKRgMpuZuLBivzlM8s2Dk5lXBQ&index=30&pp=iAQB)
+YouTube Video Link: [Here](https://www.youtube.com/watch?v=-tq7f3xtyLQ&list=PLxbwE86jKRgMpuZuLBivzlM8s2Dk5lXBQ&index=30&pp=iAQB)  
+Lab File Link: [Here-Day-16](https://mega.nz/folder/n8QXiR7S#Rognn2PnGaD4hQAA0EleEQ)
 ## Scenario
 ![](../images/j-vlan-part-01.png)
 >**R1 Configuration**

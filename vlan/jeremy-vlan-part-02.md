@@ -1,5 +1,6 @@
 # VLAN Part-02
-YouTube Video Link: [Here](https://youtu.be/iRkFE_lpYgc?si=_RnlB9TKfMgECLHR)
+YouTube Video Link: [Here](https://youtu.be/iRkFE_lpYgc?si=_RnlB9TKfMgECLHR)  
+Lab File Link: [Here-Day-17](https://mega.nz/folder/n8QXiR7S#Rognn2PnGaD4hQAA0EleEQ)
 ## Scenario:
 ![](../images/j-vlan-part-02.PNG)
 

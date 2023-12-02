@@ -1,6 +1,6 @@
 # VLAN Part-03
 YouTube Video Link: [Here](https://youtu.be/MQcCr3QW1vE?si=v0w0QYcjHe04d5y0)
-## Scenaio
+## Scenario
 ![](../images/j-vlan-part-03.PNG)
 
 >Hosts are in the correct VLANs.  
@@ -8,6 +8,7 @@ YouTube Video Link: [Here](https://youtu.be/MQcCr3QW1vE?si=v0w0QYcjHe04d5y0)
 >R1-SW2 are connected via ROAS.  
 
 ## 1. Replace the ROAS configuration on R1-SW2 with a point-to-point Layer 3 connection. Use the IP addresses given in the network diagram. Configure a default route on SW2, with R1's G0/0 interface as the next hop.
+>**R1 Configuration**
 ```
 R1>en
 R1#sh run
@@ -62,6 +63,7 @@ GigabitEthernet0/2     unassigned      YES NVRAM  administratively down down
 GigabitEthernet0/0/0   1.1.1.2         YES manual up                    up 
 Vlan1                  unassigned      YES unset  administratively down down
 ```
+>**SW2 Configuration**
 ```
 SW2#sh run
 !
@@ -131,6 +133,7 @@ S*   0.0.0.0/0 [1/0] via 10.0.0.194
 ```
 
 ## 2. Configure SVIs on SW2, one for each VLAN. Assign the last usable IP address of each subnet to the appropriate SVI.
+>**SW2 Configuration**
 ```
 SW2(config)#do sh vlan brief
 VLAN Name                             Status    Ports

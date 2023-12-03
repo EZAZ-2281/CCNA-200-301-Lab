@@ -5,7 +5,7 @@
 ### **Pkt file:** [Here](https://mega.nz/folder/KgojHATA#B7nVO6XfEG9wSY7KC-6gFw)
 
 
-# Topic: VTP, Access and Trunk Ports
+# **Topic: VTP, Access and Trunk Ports**
 
 
 ### **1) All routers and switches are in a factory default state. View the VLAN database on SW1 to verify no VLANs have been added.**
@@ -209,3 +209,207 @@ Ping statistics for 10.10.20.12:
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 1ms, Average = 0ms
 ```
+# **Topic: Inter-VLAN Routing – Option 1 (Separate Interfaces on Router)**
+### **13) Configure interface FastEthernet0/0 on R1 as the default gateway for the Eng PCs.**
+```
+R1(config)#int f0/0
+R1(config-if)#ip add 10.10.10.1 255.255.255.0
+R1(config-if)#no shut
+```
+### **14) Configure interface FastEthernet0/1 on R1 as the default gateway for the Sales PCs.**
+```
+R1(config-if)#int f0/1
+R1(config-if)#ip add 10.10.20.1 255.255.255.0
+R1(config-if)#no shut 
+```
+### **15) Configure SW2 to support inter-VLAN routing using R1 as the default gateway.**
+```
+SW2(config)#int f0/1
+SW2(config-if)#sw mode acc
+SW2(config-if)#sw acc vlan 10
+SW2(config-if)#int f0/2
+SW2(config-if)#sw mode acc
+SW2(config-if)#sw acc vlan 20
+```
+### **16) Verify the Eng1 PC has connectivity to the VLAN 20 interface on R1.**
+```
+C:\>ping 10.10.20.1
+
+Pinging 10.10.20.1 with 32 bytes of data:
+
+Reply from 10.10.20.1: bytes=32 time<1ms TTL=255
+Reply from 10.10.20.1: bytes=32 time<1ms TTL=255
+Reply from 10.10.20.1: bytes=32 time<1ms TTL=255
+Reply from 10.10.20.1: bytes=32 time<1ms TTL=255
+
+Ping statistics for 10.10.20.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+```
+### **17) Verify the Eng1 PC has connectivity to Sales1.**
+```
+C:\>ping 10.10.20.10
+
+Pinging 10.10.20.10 with 32 bytes of data:
+
+Request timed out.
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time=19ms TTL=127
+
+Ping statistics for 10.10.20.10:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 19ms, Average = 6ms
+```
+### **18) Clean-up: Shut down interface FastEthernet0/1 on R1.**
+```
+R1(config-if)#int f0/1
+R1(config-if)#shut
+```
+# **Topic: Inter-VLAN Routing – Option 2 (Router on a Stick)**
+### **19) Configure sub-interfaces on FastEthernet0/0 on R1 as the default gateway for the Eng and Sales PCs.**
+```
+R1(config)#do sh ip int brief
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        10.10.10.1      YES manual up                    up 🟩 
+FastEthernet0/1        10.10.20.1      YES manual administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+----------------------------------------------
+R1(config)#int f0/0
+R1(config-if)#no ip address
+R1(config-if)#do sh ip int brief
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        unassigned      YES manual up                    up 🟩 
+FastEthernet0/1        10.10.20.1      YES manual administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+---------------------------------------------
+R1(config-if)#int f0/0.10
+R1(config-subif)#encap dot1q
+% Incomplete command.
+R1(config-subif)#encap dot1q 10
+R1(config-subif)#ip add 10.10.10.1 255.255.255.0 
+R1(config-subif)#no shut
+
+R1(config-subif)#int f0/0.20
+R1(config-subif)#encap dot1q 20
+R1(config-subif)#ip add 10.10.20.1 255.255.255.0
+R1(config-subif)#no shut
+---------------------------------------------
+R1(config-subif)#do sh ip int brief
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        unassigned      YES manual up                    up 
+FastEthernet0/0.10     10.10.10.1      YES manual up                    up 🟩
+FastEthernet0/0.20     10.10.20.1      YES manual up                    up 🟩
+FastEthernet0/1        10.10.20.1      YES manual administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+```
+### **20) Configure SW2 to support inter-VLAN routing using R1 as the default gateway.**
+```
+SW2(config)#int f0/1
+SW2(config-if)#sw trunk encap dot1q
+SW2(config-if)#sw mode trunk 
+```
+### **21) Verify the Eng1 PC has connectivity to the VLAN 20 interface on R1.***
+```
+C:\>ping 10.10.20.10
+
+Pinging 10.10.20.10 with 32 bytes of data:
+
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time=5ms TTL=127
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+
+Ping statistics for 10.10.20.10:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 5ms, Average = 1ms
+```
+### **22) Verify the Eng1 PC has connectivity to Sales1.**
+```
+C:\>ping 10.10.20.10
+
+Pinging 10.10.20.10 with 32 bytes of data:
+
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time=14ms TTL=127
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+
+Ping statistics for 10.10.20.10:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 14ms, Average = 3ms
+```
+### **23) Clean-up: Shut down interface FastEthernet0/0 on R1.**
+```
+R1(config)#int f0/0
+R1(config-if)#shut
+```
+# **Topic: Inter-VLAN Routing – Option 3 (Layer 3 Switch)**
+### **24) Enable layer 3 routing on SW2.**
+```
+SW2(config)#ip routing
+```
+### **25) Configure SVIS on SW2 to support inter-VLAN routing between the Eng and Sales VLANs.**
+```
+SW2(config)#do sh vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/3, Fa0/4, Fa0/5, Fa0/6
+                                                Fa0/7, Fa0/8, Fa0/9, Fa0/10
+                                                Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                Fa0/15, Fa0/16, Fa0/17, Fa0/18
+                                                Fa0/19, Fa0/20, Fa0/21, Fa0/22
+                                                Fa0/23, Fa0/24
+10   Eng                              active    Fa0/1 🟩
+20   Sales                            active    Fa0/2 🟩
+199  Native                           active    
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active   
+------------------------------------------------------
+SW2(config)#int vlan 10
+SW2(config-if)#ip address 10.10.10.1 255.255.255.0 
+SW2(config-if)#no shut
+SW2(config-if)#int vlan 20
+SW2(config-if)#ip address 10.10.20.1 255.255.255.0
+SW2(config-if)#no shut 
+```
+### **26) Verify the Eng1 PC has connectivity to the VLAN 20 interface on SW2.**
+```
+C:\>ping 10.10.20.1
+
+Pinging 10.10.20.1 with 32 bytes of data:
+
+Request timed out.
+Reply from 10.10.20.1: bytes=32 time<1ms TTL=255
+Reply from 10.10.20.1: bytes=32 time<1ms TTL=255
+Reply from 10.10.20.1: bytes=32 time<1ms TTL=255
+
+Ping statistics for 10.10.20.1:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+```
+### **27) Verify the Eng1 PC has connectivity to Sales1.**
+```
+C:\>ping 10.10.20.10
+
+Pinging 10.10.20.10 with 32 bytes of data:
+
+Request timed out.
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+Reply from 10.10.20.10: bytes=32 time<1ms TTL=127
+
+Ping statistics for 10.10.20.10:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+```
+## **[The End]**

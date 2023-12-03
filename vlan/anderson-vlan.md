@@ -4,9 +4,9 @@
 ![](../images/22-1%20VLAN%20and%20Inter-VLAN%20Routing%20Configuration.jpg)
 ### **Pkt file:** [Here](https://mega.nz/folder/KgojHATA#B7nVO6XfEG9wSY7KC-6gFw)
 
-<div style="text-align:center; font-size:30px; font-weight:bold; color:red;">
-  VTP, Access and Trunk Ports
-</div>
+
+# Topic: VTP, Access and Trunk Ports
+
 
 ### **1) All routers and switches are in a factory default state. View the VLAN database on SW1 to verify no VLANs have been added.**
 ```

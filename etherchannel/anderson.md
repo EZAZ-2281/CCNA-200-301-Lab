@@ -250,3 +250,138 @@ Group  Port-channel  Protocol    Ports
 ```
 ### **8) How much total bandwidth is available between the PCs attached to Acc3 and the PCs attached to Acc4 now?**
 >The port channels from the Acc3 and Acc4 switches towards the root bridge CD1 are up and forwarding. Spanning tree shuts down the port channels toward CD2 to prevent a loop. The port channels from Acc3 and Acc4 facing the root bridge comprise two FastEthernet interfaces, so the total bandwidth available between the PCs attached to the different access layer switches is **200 Mbps**.
+
+# **Layer 3 EtherChannel Configuration.**
+>The Layer 3 switches Switch1, Switch2 and Switch3 are physically separate from the switches you configured earlier in this lab exercise.
+
+### **9) Switch1 and Switch2 are connected together with their GigabitEthernet1/0/1 and 1/0/2 interfaces. Configure these interfaces as a Layer 3 Etherchannel with LACP. Configure IP address 192.168.0.1/30 on Switch1 and 192.168.0.2/30 on Switch2.**
+```
+Switch1: 
+Switch1(config)#int range g1/0/1-2
+Switch1(config-if-range)#no switchport
+Switch1(config-if-range)#channel-group 1 mode active
+Switch1(config-if-range)#int po 1
+Switch1(config-if)#ip add 192.168.0.1 255.255.255.252 
+Switch1(config-if)#no shut
+
+Switch2: 
+Switch2(config)#int range g1/0/1-2
+Switch2(config-if-range)#no switchport
+Switch2(config-if-range)#channel-group 1 mode active 
+Switch2(config-if-range)#int po 1
+Switch2(config-if)#ip add 192.168.0.2 255.255.255.252 
+Switch2(config-if)#no shut
+```
+### **10) Switch1 and Switch3 are connected together with their GigabitEthernet1/0/3 and 1/0/4 interfaces. Configure these interfaces as a Layer 3 Etherchannel with LACP. Configure IP address 192.168.0.5/30 on Switch1 and 192.168.0.6/30 on Switch3.**
+```
+Switch1: 
+Switch1(config-if)#int range g1/0/3-4
+Switch1(config-if-range)#no switchport
+Switch1(config-if-range)#channel-group 2 mode active 
+Switch1(config-if-range)#int po 2
+Switch1(config-if)#ip add 192.168.0.5 255.255.255.252
+Switch1(config-if)#no shut
+
+Switch3: 
+Switch3(config)#int range g1/0/3-4
+Switch3(config-if-range)#no switchport
+Switch3(config-if-range)#channel-group 2 mode active 
+Switch3(config-if-range)#int po 2
+Switch3(config-if)#ip add 192.168.0.6 255.255.255.252
+Switch3(config-if)#no shut
+```
+### **11) Switch2 and Switch3 are connected together with their GigabitEthernet1/0/5 and 1/0/6 interfaces. Configure these interfaces as a Layer 3 Etherchannel with LACP. Configure IP address 192.168.0.9/30 on Switch2 and 192.168.0.10/30 on Switch3.**
+```
+Switch2: 
+Switch2(config-if)#int range g1/0/5-6
+Switch2(config-if-range)#no switchport
+Switch2(config-if-range)#channel-group 3 mode active 
+Switch2(config-if-range)#int po 3
+Switch2(config-if)#ip add 192.168.0.9 255.255.255.252 
+Switch2(config-if)#no shut
+
+Switch3: 
+Switch3(config-if)#int range g1/0/5-6
+Switch3(config-if-range)#no switchport
+Switch3(config-if-range)#channel-group 3 mode active 
+Switch3(config-if-range)#int po 3
+Switch3(config-if)#ip add 192.168.0.10 255.255.255.252
+Switch3(config-if)#no shut
+```
+### **12) Verify the EtherChannels come up.**
+```
+Switch1(config-if)#do sh et summ
+Flags:  D - down        P - in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 2
+Number of aggregators:           2
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+----------------------------------------------
+
+1      Po1(RU)           LACP   Gig1/0/1(P) Gig1/0/2(P) 🟩
+2      Po2(RU)           LACP   Gig1/0/3(P) Gig1/0/4(P) 🟩
+```
+> do it in Switch2 and Switch3. 
+
+### **13) Configure Switch1, Switch2 and Switch3 to advertise the IP subnets configured on their Etherchannel interfaces in OSPF Area 0.**
+```
+Switch1(config-if)#ip routing 
+Switch1(config)#router ospf 1
+Switch1(config-router)#network 192.168.0.0 0.0.0.255 area 0
+
+Switch2(config-if)#ip routing 
+Switch2(config)#router ospf 1
+Switch2(config-router)#network 192.168.0.0 0.0.0.255 area 0
+
+Switch3(config-if)#ip routing 
+Switch3(config)#router ospf 1
+Switch3(config-router)#network 192.168.0.0 0.0.0.255 area 0
+```
+### **14) Verify the OSPF adjacencies are formed successfully.**
+```
+Switch1#sh ip ospf nei
+
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+192.168.0.10      1   FULL/DR         00:00:35    192.168.0.6     Port-channel2
+192.168.0.9       1   FULL/DR         00:00:30    192.168.0.2     Port-channel1
+```
+> do it also Switch2 and Switch3.
+
+### **15) Verify Switch1, Switch2 and Switch3 have routes to all configured networks in their routing tables.**
+```
+Switch1#sh ip route 
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     192.168.0.0/30 is subnetted, 3 subnets
+C       192.168.0.0 is directly connected, Port-channel1
+C       192.168.0.4 is directly connected, Port-channel2
+O       192.168.0.8 [110/2] via 192.168.0.2, 00:00:59, Port-channel1 🟩
+                    [110/2] via 192.168.0.6, 00:00:59, Port-channel2 🟩
+```					
+### **16) Which physical ports on which switches do you expect the Spanning Tree protocol to disable? Verify this.**
+```
+Switch1#sh span
+
+No spanning tree instance exists.
+```
+>Spanning Tree only runs on Layer 2 interface. It will not run on or shut any of the ports down as they are all Layer-3 ports. The Layer-3 switches routing tables will handle path selection, redundancy and load balancing. 
+
+### **[The End]**

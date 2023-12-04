@@ -1,6 +1,8 @@
 # David Bombal-VLAN Lab (Source: Udemy)
 ## Scenario: 
 ![](../images/dvlan.PNG)
+
+Lab File Link (pkt): [Here](https://mega.nz/file/LpYwQQKa#aHDxFucKxpbvzI3LtrhcimP50TPbx66fs-wgz7eReFY)  
 # 1. 3650 = layer 3 switch with IP addresses and interVLAN routing:
 >**Given:**  
 >VLAN 1 = 10.1.1.254/24  

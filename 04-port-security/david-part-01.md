@@ -196,6 +196,197 @@ Max Addresses limit in System (excluding one mac per port) : 1024
 ```
 A different mac-address could be learnt. We are not restricting mac-address on this port we are only restricting the number of mac-address allowed on that port. If the switch reboots then a different mac-address could be learnt on that port and the original mac-address coule be seen as a violating mac-address.
 ```
+# **2) Enable port security on G1/0/3 and automatically add the MAC address to the running configuration.**
+```
+Question: 
+-> What happens when the second host sends traffic?
+-> What happens when the switch is power cycled (don't save config)? 
+```
+### **First configure port-Security using mac-address sticky.**
+```
+SW1(config)#int g1/0/3
+SW1(config-if)#switchport mode access
+SW1(config-if)#switchport port-security 
+SW1(config-if)#switchport port-security mac-address sticky
+```
+```
+SW1(config-if)#do sh port-sec
+Secure Port MaxSecureAddr CurrentAddr SecurityViolation Security Action
+               (Count)       (Count)        (Count)
+--------------------------------------------------------------------
+     Gig1/0/3        1          0                 0         Shutdown
+----------------------------------------------------------------------
+```
+```
+SW1(config-if)#do sh port-sec int g1/0/3
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Shutdown
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 1
+Total MAC Addresses        : 0
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 0000.0000.0000:0
+Security Violation Count   : 0
+```
+### **Now save the running-configuration file to the startup-configuration.**
+```
+SW1#wr
+```
+```
+SW1#sh run 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+```
+### **Now allocate IP address.** 
+> Go to PC3:  
+```
+C:\>ipconfig /renew
+
+   IP Address......................: 10.1.1.7
+   Subnet Mask.....................: 255.255.255.0
+   Default Gateway.................: 10.1.1.254
+   DNS Server......................: 10.1.1.254
+```
+```
+SW1(config-if)#do sh port-sec int g1/0/3
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Shutdown
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 1
+Total MAC Addresses        : 1
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 1
+Last Source Address:Vlan   : 00C0.3333.3333:1 🟩
+Security Violation Count   : 0
+```
+```
+SW1#sh run 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00C0.3333.3333
+!
+```
+### **Now do some violation.**
+> Now go to PC4:  
+```
+C:\>ipconfig /renew
+DHCP request failed. 
+```
+```
+SW1(config-if)#do sh port-sec int g1/0/3
+Port Security              : Enabled
+Port Status                : Secure-shutdown
+Violation Mode             : Shutdown
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 1
+Total MAC Addresses        : 1
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 1
+Last Source Address:Vlan   : 00C0.4444.4444:1
+Security Violation Count   : 1 🟩
+```
+### **Notice the port is shut-down because of the violation.** 
+```
+SW1#sh run 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00C0.3333.3333
+ shutdown 🟩
+!
+```
+### **Now up the port by removing the sticky mac-address.**
+```
+SW1(config-if)#int g1/0/3
+SW1(config-if)#no switchport port-security mac-address sticky 00C0.3333.3333
+SW1(config-if)#shut
+SW1(config-if)#no shut
+```
+```
+SW1#sh run 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 🟩
+!
+```
+### **Now this time if we want to allocate ip for the PC4 this mac address will be added in the running-configuration file.**
+> Now go to PC4:  
+```
+C:\>ipconfig /renew
+
+   IP Address......................: 10.1.1.5
+   Subnet Mask.....................: 255.255.255.0
+   Default Gateway.................: 10.1.1.254
+   DNS Server......................: 10.1.1.254
+```
+```
+SW1#sh run 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00C0.4444.4444 🟩
+```
+```
+SW1(config-if)#int g1/0/3
+SW1(config-if)#no switchport port-security mac-address sticky 00C0.4444.4444
+SW1(config-if)#shut
+SW1(config-if)#no shut
+```
+> Now go to PC3:  
+```
+C:\>ipconfig /renew
+
+   IP Address......................: 10.1.1.7
+   Subnet Mask.....................: 255.255.255.0
+   Default Gateway.................: 10.1.1.254
+   DNS Server......................: 10.1.1.254
+```
+```
+SW1#sh run 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00C0.3333.3333
+```
+```
+SW1#wr 
+SW1#sh start 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00C0.3333.3333
+```
+```
+SW1#reload 
+SW1#sh run 
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00C0.3333.3333
+```
+```
+So what's the point of using Sticky Mac addresses? What does it do and what doesn't do? Well, Sticky Mac addresses save you the trouble of finding the Mac addresses of devices and writing that to the running configuration on the last port. We're going to have to manually configure the Mac addresses. So that means that you need to find out what the Mac addresses are of your devices.Sticky saves you that trouble because it automatically learns the Mac address and then writes it to the running configuration. But that means that the first device that sends traffic into the network needs to be the device that you trust. In other words, it needs to be the device that you want connected to that port. If another device sends traffic, that device's Mac address will be written to the running configuration and not the Mac address of the device that you actually want on that port. Secondly, sticky configuration is written to the running config of the switch. You have to save the switch configuration if you want to make that permanent.
+```
+
 
 # **3) Enable port security on G1/0/4 by manually specifying PC5's MAC address. Drop other traffic and send log messages when a violation occurs.**
 ```

@@ -259,5 +259,84 @@ Last Source Address:Vlan   : 00C0.6666.6666:1
 Security Violation Count   : 2 🟩
 ```
 
+# **4) Increase the number of devices allowed on G1/0/1 to 2 and verify that both PCs receive IP addresses from the DHCP server.**
+```
+SW1(config)#int g1/0/1
+SW1(config-if)#switchport port-security
+SW1(config-if)#switchport port-security maximum 2
+SW1(config-if)#shut
+SW1(config-if)#no shut
+```
+```
+SW1(config-if)#do sh port-sec
+Secure Port MaxSecureAddr CurrentAddr SecurityViolation Security Action
+               (Count)       (Count)        (Count)
+--------------------------------------------------------------------
+     Gig1/0/1        2🟩        0                 0         Shutdown
+     Gig1/0/3        1          1                 0         Shutdown
+     Gig1/0/4        1          1                 0         Restrict
+----------------------------------------------------------------------
+```
+> Now go to PC1 and PC2 and issue this same command in both PC.  
+```
+C:\>ipconfig /renew 
+```
+> Now check the port-security status of that interface  
+```
+SW1(config-if)#do sh port-sec int g1/0/1
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Shutdown
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 2 🟩
+Total MAC Addresses        : 2 🟩
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 00C0.2222.2222:1 🟩
+Security Violation Count   : 0 🟩
+```
+```
+SW1(config-if)#do sh port-sec
+Secure Port MaxSecureAddr CurrentAddr SecurityViolation Security Action
+               (Count)       (Count)        (Count)
+--------------------------------------------------------------------
+     Gig1/0/1        2          2                 0         Shutdown 🟩
+     Gig1/0/3        1          1                 0         Shutdown
+     Gig1/0/4        1          1                 0         Restrict
+----------------------------------------------------------------------
+```
+```
+SW1#sh run 
+interface GigabitEthernet1/0/1
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 2
+```
+```
+SW1#wr
+```
+> Now go to PC1 and change its mac address and issue ipconfig /renew command then check the violation status:  
+```
+C:\>ipconfig /renew 
+DHCP request failed. 
+```
+```
+SW1#sh port-security int g1/0/1
+Port Security              : Enabled
+Port Status                : Secure-shutdown 🟩
+Violation Mode             : Shutdown
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 2 🟩
+Total MAC Addresses        : 0
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 00C0.1111.9999:1 🟩
+Security Violation Count   : 1 🟩
+```
 
+## **[The End]**
  

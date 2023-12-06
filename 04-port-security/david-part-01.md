@@ -197,5 +197,67 @@ Max Addresses limit in System (excluding one mac per port) : 1024
 A different mac-address could be learnt. We are not restricting mac-address on this port we are only restricting the number of mac-address allowed on that port. If the switch reboots then a different mac-address could be learnt on that port and the original mac-address coule be seen as a violating mac-address.
 ```
 
+# **3) Enable port security on G1/0/4 by manually specifying PC5's MAC address. Drop other traffic and send log messages when a violation occurs.**
+```
+SW1(config)#int g1/0/4
+SW1(config-if)#switchport mode access
+SW1(config-if)#switchport port-security 
+SW1(config-if)#switchport port-security violation restrict
+SW1(config-if)#switchport port-security mac-address 00C0.5555.5555
+```
+```
+SW1#sh run 
+interface GigabitEthernet1/0/4
+ switchport mode access
+ switchport port-security
+ switchport port-security violation restrict  🟩
+ switchport port-security mac-address 00C0.5555.5555 🟩
+!
+```
+> Go to PC5:  
+```
+C:\>ipconfig /renew
+
+   IP Address......................: 10.1.1.4
+   Subnet Mask.....................: 255.255.255.0
+   Default Gateway.................: 10.1.1.254
+   DNS Server......................: 10.1.1.254
+```
+```
+SW1#sh port-security int g1/0/4
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Restrict
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 1 🟩
+Total MAC Addresses        : 1 🟩
+Configured MAC Addresses   : 1
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 00C0.5555.5555:1 🟩
+Security Violation Count   : 0 🟩
+```
+Go to PC6:    
+```
+C:\>ipconfig /renew
+DHCP request failed. 
+```
+```
+SW1#sh port-security int g1/0/4
+Port Security              : Enabled
+Port Status                : Secure-up 🟩
+Violation Mode             : Restrict
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 1
+Total MAC Addresses        : 1
+Configured MAC Addresses   : 1
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 00C0.6666.6666:1
+Security Violation Count   : 2 🟩
+```
+
 
  

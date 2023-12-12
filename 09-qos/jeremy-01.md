@@ -1,4 +1,4 @@
-# QoS Configuration
+# QoS Configuration Part-01
 ## Source (YouTube: Jeremy's IT Lab)
 ### Video Link: [Here](https://youtu.be/kGX76QNIjsE?si=nR8oT-cqCXVjTKyW)
 ### Lab File Link (pkt): [Here Day-46](https://mega.nz/file/DwJBTQyR#h0-f9gjNULuUoumoi8euFNalM5W53t1Mhu0rzH_9pcc)

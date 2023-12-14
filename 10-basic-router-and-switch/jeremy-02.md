@@ -75,7 +75,4 @@ https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/4fbd5300-15b3-46e4
 
 ## **[The End]**
 
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/enMumwvLAug" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
 

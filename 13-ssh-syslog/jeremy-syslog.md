@@ -15,6 +15,7 @@
 
 Necessary command for this part: `R1(config)#service timestamps log datetime msec`  
 Now watch this video:  
+
 https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/e32bc84e-6910-4391-85ca-a13087c5cb00
 
 
@@ -26,6 +27,7 @@ https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/e32bc84e-6910-4391
 
 For enable login in the VTY lines: `R1#terminal monitor`  
 Now watch this video:  
+
 https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/faad2277-454b-419a-8fed-5db171d66410
 
 ### **3. Enable logging to the buffer, and configure the buffer size to 8192 bytes.**
@@ -35,6 +37,7 @@ R1(config)#logging buffer 8192
 R1(config)#do sh logging
 ```
 Now watch this video:  
+
 https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/0252fb98-bde1-40d6-a7c6-802975b8378f
 
 ### **4. Enable logging to the syslog server SRV1 with a level of 'debugging'.**
@@ -45,6 +48,7 @@ R1(config)#logging trap debugging
 - Now R1 will send syslog message to SRV1
 
 Now watch this video:  
+
 https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/960bf2c1-d2d9-47b8-a9a5-7b195ae60b31
 
 

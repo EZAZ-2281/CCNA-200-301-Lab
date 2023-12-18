@@ -77,8 +77,9 @@ Password: Flackbox4 R1>exit
 ```
 - Watch this video also if necessary for answering 1 to 7. 
 Link: [Here](https://drive.google.com/file/d/1BiZ5MTqIJ1IQDGr4gZRDFOB2_iyy9mco/view?usp=sharing)  
-<br>
-<br>
+
+
+
 ### **8) Allow the administrator workstation at 10.0.0.10 to SSH into R1. Use the domain name flackbox.com and a 768 bit key.**
 ```
 R1(config)#ip domain-name flackbox.com 

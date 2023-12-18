@@ -30,4 +30,9 @@ clock offset is 0.00 msec, root delay is 0.00  msec
 root dispersion is 17.70 msec, peer dispersion is 0.12 msec.
 loopfilter state is 'CTRL' (Normal Controlled Loop), drift is - 0.000001193 s/s system poll interval is 4, last update was 8 sec ago.
 ```
+- Also see this video if necessary:  
+
+https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/0ab95a0c-3eef-4b59-aa50-3ef9641001c2
+
+
 ## **[The End]**

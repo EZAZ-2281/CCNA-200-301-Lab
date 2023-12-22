@@ -12,7 +12,7 @@
 ### **1. Configure the PCs and routers according to the network diagram (hostnames, IP addresses, etc.)**
 - Remember to configure the gateway on the PCs. (You don't have to configure the switches)
 
-Watch this video for question-1: [Here](https://drive.google.com/file/d/1xY31CC0u5PBPCIo7sBLXjEYJgOkD7aeT/view?usp=sharing)
+Watch this video for question-1: [Here](https://drive.google.com/file/d/1c2Ft0U08rCESy-0VFKVeMGpbNeV_dWe7/view?usp=sharing)
 
 
 ### **2. Configure static routes on the routers to enable PC1 to successfully ping PC2.**
@@ -51,5 +51,5 @@ There is one misconfiguration on each router.
 Find and fix the misconfigurations.
 You have successfully completed the lab when PC1 and PC2 can ping eachother.
 ```
-- Watch this video for solve this.  [Here](https://drive.google.com/file/d/1caCOJKz3a05fVI7vPnqR7X3IydpCe4NC/view?usp=sharing)
+- Watch this video for solve this.  [Here](https://drive.google.com/file/d/1OLpoU265GdWxvVUem0Qz2xeigrcJ7gRf/view?usp=sharing)
 ## **[The End]**

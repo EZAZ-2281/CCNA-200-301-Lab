@@ -54,6 +54,8 @@ access-list 101 deny tcp 172.16.2.0 0.0.0.255 host 192.168.2.100 eq 443
 access-list 101 permit ip any any
 ```
 
-- Testing Connectivity: [Here](https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/d41a4b7b-7dc9-4cc0-af12-0b3c116d853e)
+- Testing Connectivity: 
+
+https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/d41a4b7b-7dc9-4cc0-af12-0b3c116d853e
 
 ## **[The End]**

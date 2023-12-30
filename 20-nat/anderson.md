@@ -41,7 +41,7 @@ R1(config)#access-list 1 permit 10.0.2.0 0.0.0.255
 R1(config)#ip nat pool POOL1 203.0.113.4 203.0.113.12 netmask 255.255.255.240
 R1(config)#ip nat inside source list 1 pool POOL1
 ```
-![](../images/logicna.png)
+![](../images/logicna.PNG)
 
 6) Turn on NAT debugging on R1. Ping Ext-S1 from PC1. View the debug output on R1. You should see NAT entries for the 5 pings. Which global address was PC1 translated to?
 ```
@@ -153,5 +153,26 @@ Watch this video for step 14-18:
 ```
 https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/e5fee320-f6aa-47f7-8802-8b5855a7ca42
 
+- All necessary command at a glance: 
+```
+R1(config)#int f1/0
+R1(config-if)#ip nat inside
+R1(config-if)#int f0/0
+R1(config-if)#ip nat outside
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃
 
+R1(config)#ip nat inside source static 10.0.1.10 203.0.113.3
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃
+
+R1(config)#access-list 1 permit 10.0.2.0 0.0.0.255
+R1(config)#ip nat pool POOL1 203.0.113.4 203.0.113.12 netmask 255.255.255.240
+R1(config)#ip nat inside source list 1 pool POOL1
+R1(config)#ip nat inside source list 1 pool POOL1 overload
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃
+
+R1(config)#access-list 1 permit 10.0.2.0 0.0.0.255
+R1(config)#ip nat inside source list 1 int f0/0 overload
+
+R1#clear ip nat translation * 
+```
 ## **[The End]**

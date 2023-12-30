@@ -5,7 +5,6 @@
 ![](../images/nanat.PNG)
 
 # **Static NAT**
-![standard (3)](https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/2572b75f-2ad3-443d-b76a-62887c0bc434)
 
 1)	Int-S1 is your company’s web server. It must be reachable from external customers browsing the Internet. Configure NAT on R1 so that external customers can reach the server using the public IP address 203.0.113.3. Do not change any IP addressing or routing information.
 - Int-S1 needs a fixed public IP address so we must configure static NAT. Configure the F0/0 interface facing the Internet as the NAT outside interface.
@@ -28,7 +27,7 @@ Watch this video for step 2 to 4.
 https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/92586491-170c-4f14-a3f3-3042e3c81026
 
 # **Dynamic NAT**
-![standard (4)](https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/475f1de2-055c-40c8-8c5e-ff4783867bd9)
+
 
 5) Configure NAT on R1 so that PCs in the 10.0.2.0/24 subnet have connectivity to external networks on a first come first served basis. Assign global addresses from the range 203.0.113.4 to 203.0.113.12. Do not enable Port Address Translation.
 ```
@@ -109,7 +108,6 @@ R1#show access-list
 R1#
 ```
 # **Port Address Translation PAT**
-![standard (5)](https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/db7d971a-62e6-452c-a524-d1c0005dd2e6)
 
 
 11)	Your company no longer has a range of public IP addresses. Instead you will receive a single public IP address via DHCP from your service provider.

@@ -1,4 +1,4 @@
-# STP Troubleshooting (Source: Udemy)
+# STP Configuration (Source: Udemy)
 ## Instructor: Neil Anderson  
 ### **Pkt file:** [Here](https://mega.nz/file/35YxiaBK#4aLZLvs3_9Rt2Q6YswxHLMBrac8lUIACtTTy_7iSsVE)
 ### Scenario: 

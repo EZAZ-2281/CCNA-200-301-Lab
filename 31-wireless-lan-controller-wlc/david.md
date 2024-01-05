@@ -24,4 +24,6 @@ https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/cf2b858c-df8f-44d4
 
 ![](../images/wifi2.PNG)
 
+![](../images/dwifi1.PNG)
+
 ## **[The End]**

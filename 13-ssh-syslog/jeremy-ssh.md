@@ -1,7 +1,7 @@
 # SSH
 ## Source (YouTube: Jeremy's IT Lab)
 ### Video Link: [Here](https://youtu.be/QnHq7iCOtTc?si=iIh65xi8Og10t_-q)
-### Lab File Link (pkt): [Here Day-38](https://mega.nz/file/HphzlQBK#xYKljUORAZrLoGUWJRnM_zntIzyRGp74CeiEa5_fpS4)
+### Lab File Link (pkt): [Here Day-42](https://mega.nz/file/HphzlQBK#xYKljUORAZrLoGUWJRnM_zntIzyRGp74CeiEa5_fpS4)
 ### Scenario:
 ![](../images/sshj.PNG)
 

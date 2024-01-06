@@ -15,6 +15,7 @@ Assign the last usable address to the router's interface in each LAN.
 Configure static routes on each router so that all PCs can ping eachother.
 ```
 ## **Solution**
+![](../images/hlp.jpg)
 ```
 R1(config)#int g0/1
 R1(config-if)#ip address 192.168.5.126 255.255.255.128

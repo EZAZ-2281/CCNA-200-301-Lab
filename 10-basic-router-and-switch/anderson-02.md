@@ -24,7 +24,11 @@ Trying 10.10.10.10 ...
 Hint: you can use the show ip interface brief command to verify interfaces are operational on routers and switches. This command will be covered in more detail in the next section.
 
 ### **Solution**
-![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed_page-0001.jpg)
+![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed_page-0001.jpg)  
+![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed_page-0002.jpg)  
+![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed_page-0003.jpg)  
+![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed_page-0004.jpg)  
+![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed_page-0005.jpg)  
 
 
 

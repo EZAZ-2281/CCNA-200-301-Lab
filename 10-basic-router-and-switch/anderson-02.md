@@ -25,10 +25,16 @@ Hint: you can use the show ip interface brief command to verify interfaces are o
 
 ### **Solution**
 ![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed-1.PNG)
+
 ![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed-2.PNG)
+
 ![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed-3.PNG)
+
 ![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed-4.PNG)
+
 ![](../images/Cisco_CCNA_Lab_Guide_v200-301c_removed-5.PNG)
+
+
 > Watch this video:  
 
 https://github.com/EZAZ-2281/CCNA-200-301-Lab/assets/81481142/bcc079f4-1275-463f-9770-bca1ef87bb07

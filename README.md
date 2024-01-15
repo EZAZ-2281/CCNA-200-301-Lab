@@ -35,6 +35,8 @@ For any questions, feedback, or suggestions, feel free to open an issue or conta
 | Another Book by Hazim Gaber | [Here](https://mega.nz/file/zoYR0KBQ#TwOFOekgZLLpx7P5g10Q_ucVrmUZj5z6N5DctWFkkqs) |
 | Important Subnetting Note | [Here](https://mega.nz/folder/vpxlyQoZ#bH84d3Kfv155zCZW2YcSGw) |
 | Some Important PDF Files | [Here](https://mega.nz/folder/L1pgELbB#hU1T71ZANBB3PnLuzrPrnQ) |
+| All 'show' command | [Here](./images/show.md) |
+| All 'configuration' command | [Here](./images/config.md) |
 
 
 ### **Happy learning and labbing! 🎓🔧**

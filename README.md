@@ -29,7 +29,7 @@ For any questions, feedback, or suggestions, feel free to open an issue or conta
 |----------|----------|
 | Official Cert Guide Volume-01 | [Here](https://mega.nz/folder/7ww3XQiI#rbsJM30ejexfDgTNW2rftA) | 
 | Official Cert Guide Volume-02 | [Here](https://mega.nz/folder/WtBz3RDL#ZZCwTeEoxosfVKZaV7h7_Q) | 
-|Official Cert Guide Key Topics|[Here](https://mega.nz/file/f54XnayA#KFslG48qRq1UPZ22rL6-Hgu1yQazN555IjmRvJEA460)|
+|Official Cert Guide Key Topics|[Here](https://mega.nz/folder/W9gyGAyT#dMpW_fUGhlgP7QxliOGcqg)|
 | Jeremy Lab File | [Here](https://mega.nz/folder/OopRwYjb#ME8GSMbQQFLK51H_xZRSOQ) |
 | Jeremy PDF and Flash card | [Here](https://mega.nz/folder/n8QXiR7S#Rognn2PnGaD4hQAA0EleEQ) |
 | Neil Anderson Lab Book | [Here](https://mega.nz/file/y1ZQTAoZ#KJ6CphqDEegi5MBeDI0jawSJ177m7fuW_LxniDJAbYM) |

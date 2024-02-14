@@ -29,6 +29,7 @@ For any questions, feedback, or suggestions, feel free to open an issue or conta
 |----------|----------|
 | Official Cert Guide Volume-01 | [Here](https://mega.nz/folder/7ww3XQiI#rbsJM30ejexfDgTNW2rftA) | 
 | Official Cert Guide Volume-02 | [Here](https://mega.nz/folder/WtBz3RDL#ZZCwTeEoxosfVKZaV7h7_Q) | 
+|Official Cert Guide Key Topics|[Here](https://mega.nz/file/f54XnayA#KFslG48qRq1UPZ22rL6-Hgu1yQazN555IjmRvJEA460)|
 | Jeremy Lab File | [Here](https://mega.nz/folder/OopRwYjb#ME8GSMbQQFLK51H_xZRSOQ) |
 | Jeremy PDF and Flash card | [Here](https://mega.nz/folder/n8QXiR7S#Rognn2PnGaD4hQAA0EleEQ) |
 | Neil Anderson Lab Book | [Here](https://mega.nz/file/y1ZQTAoZ#KJ6CphqDEegi5MBeDI0jawSJ177m7fuW_LxniDJAbYM) |
@@ -37,6 +38,9 @@ For any questions, feedback, or suggestions, feel free to open an issue or conta
 | Some Important PDF Files | [Here](https://mega.nz/folder/L1pgELbB#hU1T71ZANBB3PnLuzrPrnQ) |
 | All 'show' command | [Here](./images/show.md) |
 | All 'configuration' command | [Here](./images/config.md) |
-
+|Todd Lammle book Volume-1&2| [Here](https://mega.nz/folder/esB3mYjB#CRFF5Fe4ofsJRgUJuz2Sqg) |
+|CCNA Practice Exam|[Here](https://mega.nz/file/vsx02L6I#vsoVtcdiXAvVEab3J7N1qweTBe-0bmNBsNxyS7itKxY)|
+|31 days before your CCNA exam|[Here](https://mega.nz/file/f54XnayA#KFslG48qRq1UPZ22rL6-Hgu1yQazN555IjmRvJEA460)|
+|Practice Test|[Here](https://mega.nz/file/L0JHxS4T#4B934Z7Rb6lIJxNyCkZZKUdFGeOWLUSH8awgU4fXB0c)|
 
 ### **Happy learning and labbing! 🎓🔧**

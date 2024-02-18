@@ -1,0 +1,126 @@
+hostname SW1
+ip domain-name example.com 
+crypto key generate rsa
+crypto key generate rsa modulus modulus-value 
+!
+ip ssh version 2 
+!
+enable secret kibria
+no enable secret 
+!
+enable algorithm-type md5 secret kibria 
+enable algorithm-type sha256 secret kibria 
+enable algorithm-type scrypt secret kibria 
+!
+ip default-gateway 192.168.1.1 
+!
+ip name-server 8.8.8.8
+!
+no ip domain-loopup 
+!
+[no] logging console 
+!
+service password-encryption 
+!
+username kibria secret ezaz 
+username mottaki secret billah
+!
+username kibria algorithm-type md5 secret ezaz 
+username mottaki algorithm-type sha256 secret billah 
+username kaysar algorithm-type scrypt secret hossain 
+!
+errdisable recovery cause psecure-violation
+errdisable recovery interval seconds 
+!
+errdisable recovery cause dhcp-rate-limit 
+errdisable recovery interval seconds 
+!
+errdisable recovery cause arp-inspection 
+errdisable recovery interval seconds 
+!
+ip dhcp snooping
+ip dhcp snooping vlan 11
+no ip dhcp snooping information option 
+!
+ip arp inspection vlan 11 
+!
+access-list 1 permit 10.1.1.1
+access-list 1 permit host 10.1.1.1 
+access-list 1 deny 10.1.1.0 0.0.0.255 
+access-list 1 permit any 
+access-list 1 remark this-is-dummy-text 
+!
+access-list 101 {permit|deny} protocol srcip dstip 
+access-list 101 deny ip host 1.1.1.1 host 2.2.2.2
+access-list 101 deny udp 1.1.1.0 0.0.0.255 any 
+access-list 101 deny {tcp|udp|icmp} any any 
+access-list 101 permit tcp 172.16.3.0 0.0.0.255 eq 21 172.16.1.0 0.0.0.255 
+!
+ip access-list standard Kibria 
+permit 1.1.1.1 
+permit 2.2.2.2 
+permit 3.3.3.3 
+ip access-list extended Kibria 
+permit tcp host 10.1.1.2 eq www any 
+permit ip any any 
+!
+ip access-list extended Kibria 
+no permit tcp host 10.1.1.2 eq www any 
+no sequence-number 
+5 deny 10.1.1.1 
+!
+access-list 2 permit 10.1.1.0 0.0.0.255 
+!
+interface FastEthernet0/1
+   shutdown 
+   no shutdown 
+   switchport mode {access | trunk}
+   switchport port-security
+   switchport port-security mac-address 1111.1111.1111
+   switchport port-security mac-address sticky
+   switchport port-security maximum 5
+   switchport port-security violation {protect | restrict | shutdown}
+   
+   ip dhcp snooping trust 
+   ip dhcp snooping limit rate 10
+   no ip dhcp snooping limit rate 10 
+   
+   ip arp inspection trust 
+   ip arp inspection validate {src-mac | dst-mac | ip} 
+   ip arp inspection limit rate 8 {none}
+   ip arp inspection limit rate 8 brust interval 4
+   
+   ip address dhcp 
+   
+   ip access-group 1 {in|out}
+   ip access-group Kibria {in|out} 
+   no ip access-group 
+!
+int vlan 1 
+   ip address 192.168.1.1 255.255.255.0
+   no shut 
+!
+line con 0
+   password faith
+   login
+   exec-timeout minute second 
+   logging synchronous 
+   history size 20 
+!
+line con 0 
+   no password
+   login local 
+!
+line vty 0 15
+   password hope
+   login 
+   exec-timeout minute second 
+   logging synchronous 
+   history size 20 
+   access-class 2 in 
+!
+line vty 0 15
+   no password
+   login local 
+   transport input {all | none | telnet | ssh} 
+!

@@ -1,0 +1,31 @@
+EXEC mode commands: 
+show running-config interface f0/1
+copy running-config startup-config
+sh port-security {int f0/1}
+sh mac address-table dynamic {int f0/1}
+sh mac address-table static
+sh mac address-table secure {int f0/1}
+sh int f0/1 status
+
+sh ip dhcp snooping
+sh ip arp inspection {int g0/1}
+sh ip dhcp snooping binding 
+sh ip arp inspection statistics 
+
+sh ip ssh
+sh ssh 
+
+sh dhcp lease 
+sh int vlan 1 
+sh ip default-gateway 
+
+sh history 
+terminal history size x 
+
+sh run | section line con 0 
+sh run | include enable secret 
+sh run | include enable 
+
+sh ip access-lists {access-list-number}
+sh access-lists 
+sh ip int g0/1 

@@ -29,3 +29,30 @@ sh run | include enable
 sh ip access-lists {access-list-number}
 sh access-lists 
 sh ip int g0/1 
+
+sh ip nat translations
+sh ip nat statistics
+clear ip nat translation *
+debug ip nat 
+
+sh cdp 
+sh cdp int g0/1
+sh cdp traffic
+sh cdp neighbors 
+sh cdp neighbors details 
+sh cdp entry host-name 
+
+sh lldp 
+sh lldp int g0/1
+sh lldp traffic 
+sh lldp neighbors 
+sh lldp neighbors details 
+sh lldp entry host-name 
+
+sh clock 
+sh ntp status 
+sh ntp associations 
+
+sh logging 
+clear logging 
+sh process cpu 

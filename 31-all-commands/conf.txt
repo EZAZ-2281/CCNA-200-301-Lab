@@ -71,6 +71,42 @@ no sequence-number
 !
 access-list 2 permit 10.1.1.0 0.0.0.255 
 !
+ip nat inside source static inside-local inside-global 
+!
+access-list 1 permit 10.1.1.1
+ip nat pool ezaz 200.1.1.1 200.1.1.2 netmask 255.255.255.252
+ip nat inside source-list 1 pool ezaz 
+!
+ip nat inside source-list 1 pool ezaz overload 
+ip nat inside source-list 1 int g0/1 overload 
+!
+cdp run
+no cdp run 
+cdp timer sec 
+cdp holdtime sec 
+!
+lldp run 
+no lldp run 
+lldp timer sec 
+lldp holdtime sec 
+!
+clock timezone EST -5
+clock summer-time EDT recurring 
+#clock set 20:50:42 5 March 2024
+!
+ntp master 2 
+ntp server 172.16.3.3 
+ntp source loopback 0 [use this command when use loopback interface]
+!
+no service timestamps 
+service sequence-number 
+!
+logging console 7 
+logging monitor debug [#terminal monitor]
+logging buffered 4 
+logging host 172.16.3.9 
+logging trap warning 
+!
 interface FastEthernet0/1
    shutdown 
    no shutdown 
@@ -95,6 +131,15 @@ interface FastEthernet0/1
    ip access-group 1 {in|out}
    ip access-group Kibria {in|out} 
    no ip access-group 
+
+   ip nat {inside | outside}
+
+   cdp enable 
+   no cdp enable 
+
+   lldp transmit 
+   lldp receive 
+   no lldp {transmit | receive}
 !
 int vlan 1 
    ip address 192.168.1.1 255.255.255.0

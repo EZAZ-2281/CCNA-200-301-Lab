@@ -56,3 +56,25 @@ sh ntp associations
 sh logging 
 clear logging 
 sh process cpu 
+
+sh ip ospf 
+sh ip ospf int g0/1
+sh ip ospf int g0/1 | include priority 
+sh ip ospf int brief
+
+sh ip protocols 
+
+sh ip ospf neighbor 
+sh ip ospf neighbor int g0/1
+sh ip ospf databse 
+sh ip ospf rib 
+
+sh ip route 
+sh ip route {ospf | static}
+sh ip route subnet-mask 
+sh ip route | section subnet 
+sh ip route 10.1.1.1 
+
+sh ip arp 
+clear ip arp 
+clear ip arp 10.1.1.1 

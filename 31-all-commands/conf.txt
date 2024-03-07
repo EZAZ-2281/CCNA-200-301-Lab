@@ -107,6 +107,23 @@ logging buffered 4
 logging host 172.16.3.9 
 logging trap warning 
 !
+ip route 172.16.2.0 255.255.255.0 g0/1
+ip route 172.16.2.0 255.255.255.0 10.1.1.1 
+ip route 172.16.2.0 255.255.255.0 10.1.1.1 permanent 
+ip route 10.1.1.9 255.255.255.255 10.9.9.9
+ip route 0.0.0.0 0.0.0.0 g0/1
+ip route 0.0.0.0 0.0.0.0 10.1.1.1 
+!
+router ospf 1
+  network 10.0.0.0 0.255.255.255 area 0 
+  no network 10.0.0.0 0.255.255.255 area 0 
+  passive-interface g0/1
+  default information originate 
+  passive-interface default
+  no passive-interface g0/1
+  shutdown 
+  no shutdown 
+!
 interface FastEthernet0/1
    shutdown 
    no shutdown 
@@ -140,10 +157,20 @@ interface FastEthernet0/1
    lldp transmit 
    lldp receive 
    no lldp {transmit | receive}
+
+   ip ospf 1 area 0 
+   ip ospf cost 4 
+   ip ospf priority 22 
+   ip ospf network point-to-point 
+   ip mtu 1500 /*byte*/
 !
 int vlan 1 
    ip address 192.168.1.1 255.255.255.0
    no shut 
+!
+int loopback 0 
+  ip address 1.1.1.1 255.255.255.255
+  ip address 10.1.1.0 255.255.255.0
 !
 line con 0
    password faith

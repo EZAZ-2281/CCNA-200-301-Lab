@@ -78,3 +78,17 @@ sh ip route 10.1.1.1
 sh ip arp 
 clear ip arp 
 clear ip arp 10.1.1.1 
+
+ssh -l kibria 10.1.2.2
+Password: 
+
+telnet 10.1.2.2
+Username:
+Password: 
+
+traceroute 10.1.2.2
+
+sh ipv6 route 
+sh ipv6 route local
+sh ipv6 route an-ipv6-address
+sh ipv6 neighbors

@@ -114,6 +114,13 @@ ip route 10.1.1.9 255.255.255.255 10.9.9.9
 ip route 0.0.0.0 0.0.0.0 g0/1
 ip route 0.0.0.0 0.0.0.0 10.1.1.1 
 !
+ipv6 route 2001:db8:0:0::/64 g0/1
+ipv6 route 2001:db8:1:0::/64 2001:db8:1:0::1/128
+ipv6 route 2001:db8:2:0::/64 g0/1 2001:db8:2:0::2/128
+ipv6 route ::/0 g0/1
+ipv6 route 2001:db8:3:0::1/128 g0/1 next-hop-link-local
+ipv6 route 2001:db8:4:0::1/128 g0/1
+!
 router ospf 1
   network 10.0.0.0 0.255.255.255 area 0 
   no network 10.0.0.0 0.255.255.255 area 0 

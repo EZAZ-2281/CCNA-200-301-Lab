@@ -92,3 +92,36 @@ sh ipv6 route
 sh ipv6 route local
 sh ipv6 route an-ipv6-address
 sh ipv6 neighbors
+
+sh mac address-table 
+sh mac address-table dynamic 
+sh mac address-table dynamic 1111.2222.3333
+sh mac address-table dynamic int f0/1
+sh mac address-table dynamic vlan 1 
+sh mac address-table aging-time 
+sh mac address-table count 
+
+clear mac address-table dynamic int f0/1 
+clear mac address-table dynamic vlan 1
+clear mac address-table dynamic address 1111.2222.3333
+
+sh int status 
+sh int f0/1 
+sh int f0/1 status 
+sh int f0/1 counters 
+
+erase startup-config 
+delete vlan.dat 
+reload 
+
+sh ip route 
+sh ip route connected 
+sh ip int brief | include 0/0 
+sh ip int brief | include vlan 
+sh vlans 
+sh int g0/1 switchport 
+sh int trunk 
+sh int 
+sh int status 
+sh int po 1
+sh etherchannel 1 summary 

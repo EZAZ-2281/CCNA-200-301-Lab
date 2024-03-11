@@ -131,6 +131,40 @@ router ospf 1
   shutdown 
   no shutdown 
 !
+mac address-table aging-time sec [vlan 1]
+!
+**ROAS**
+int g0/1.10
+  encapsulation dot1q 10 [native]
+  ip address 10.1.10.1 255.255.255.0
+  no shut 
+
+**SVI**
+sdm prefer lanbase-routing 
+#reload 
+ip routing 
+int vlan 10 
+  ip address 10.1.10.1 255.255.255.0 
+  no shut
+vlan 10 
+  shut 
+no vlan 10 
+
+**Routed Ports**
+ip routing 
+int g0/1 
+  no switchport 
+  ip address 10.1.10.1 255.255.255.0 
+  no shut 
+int range g0/1-2
+  channel-group 1 mode on 
+  no switchport 
+  no ip address 
+int port-channel 1
+  no switchport 
+  ip address 10.1.10.1 255.255.255.0 
+  no shut 
+!
 interface FastEthernet0/1
    shutdown 
    no shutdown 
@@ -170,6 +204,8 @@ interface FastEthernet0/1
    ip ospf priority 22 
    ip ospf network point-to-point 
    ip mtu 1500 /*byte*/
+
+   switchport mode trunk
 !
 int vlan 1 
    ip address 192.168.1.1 255.255.255.0

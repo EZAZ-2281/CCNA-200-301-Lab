@@ -54,7 +54,9 @@ sh ntp status
 sh ntp associations 
 
 sh logging 
+sh log 
 clear logging 
+sh process 
 sh process cpu 
 
 sh ip ospf 
@@ -125,3 +127,21 @@ sh int
 sh int status 
 sh int po 1
 sh etherchannel 1 summary 
+
+sh spanning-tree vlan 10
+sh etherchannel summary
+sh etherchannel 1 summary 
+sh etherchannel 1 port-channel
+sh etherchannel load-balance
+test etherchannel load-balance int po1 src-mac dst-mac
+
+sh vlan 
+sh vlan brief 
+sh vlan id 2 
+sh int status 
+sh int trunk 
+sh vtp status
+sh int g0/1 switchport 
+
+debug ip ospf hello 
+no debug 

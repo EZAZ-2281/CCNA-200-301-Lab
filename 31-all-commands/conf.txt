@@ -98,14 +98,15 @@ ntp master 2
 ntp server 172.16.3.3 
 ntp source loopback 0 [use this command when use loopback interface]
 !
-no service timestamps 
+[no] service timestamps 
 service sequence-number 
+service timestamps log datetime 
 !
-logging console 7 
-logging monitor debug [#terminal monitor]
-logging buffered 4 
-logging host 172.16.3.9 
-logging trap warning 
+logging console 7 [no]
+logging monitor debug [#terminal monitor] [no]
+logging buffered 4 [no]
+logging host 172.16.3.9 [no]
+logging trap warning | debugging 
 !
 ip route 172.16.2.0 255.255.255.0 g0/1
 ip route 172.16.2.0 255.255.255.0 10.1.1.1 
@@ -164,6 +165,39 @@ int port-channel 1
   no switchport 
   ip address 10.1.10.1 255.255.255.0 
   no shut 
+!
+spanning-tree vlan 10 root primary 
+spanning-tree vlan 10 root secondary 
+spanning-tree vlan 10 priority 24576
+spanning-tree mode {mst|pvst|rapid-pvst}
+int g0/1
+  spanning-tree [vlan x] cost y
+!
+**Layer-2 EtherChannel**
+int range g0/1-3
+  channel-group 1 mode on 
+  channel-group 1 mode {desirable | auto}
+  channel-group 1 mode {active | passive}
+port-channel load-balance {src-mac | etc}
+!
+**VLAN**
+vlan 10 
+name Engineering
+vtp mode {client | transparent}
+vtp domain ezaz
+vtp mode off
+vlan 10 
+shutdown 
+no shutdown
+[no] shut vlan 10
+int g0/1
+  switchport mode access
+  switchport access vlan 10 
+  switchport voice vlan 11
+  switchport mode dynamic desirable 
+  switchport nonegotiate (it disable dtp)
+  switchport trunk allowed vlan 1-10
+  switchport trunk native vlan 101
 !
 interface FastEthernet0/1
    shutdown 

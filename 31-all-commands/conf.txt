@@ -199,6 +199,38 @@ int g0/1
   switchport trunk allowed vlan 1-10
   switchport trunk native vlan 101
 !
+int g0/1
+  duplex {auto | full | half}
+  speed {auto | 10 | 100 | 1000}
+  description Link to SW2
+int range f0/1-10
+  description Link to end user
+int g0/1
+  shut
+int g0/1
+  no shut
+  no speed
+  no duplex
+  no description
+!
+ipv6 unicast-routing 
+int g0/1
+  ipv6 address 2001:db8:1:1::1/64
+  no shut
+int g0/1
+  ipv6 address 2001:db8:1:1::1/64 eui-64
+int g0/1
+  ipv6 address dhcp 
+int g0/1
+  ipv6 address autoconfig 
+int g0/1
+  ipv6 address fe80::1 link-local
+int g0/1
+  ipv6 enable 
+int g0/1
+  ipv6 address 2001:1:1:1::/64
+  ipv6 address 2001:1:1:2::99/128 anycast
+!
 interface FastEthernet0/1
    shutdown 
    no shutdown 

@@ -145,3 +145,17 @@ sh int g0/1 switchport
 
 debug ip ospf hello 
 no debug 
+
+sh int status
+sh run 
+sh int g0/1
+sh int g0/1 status 
+sh run int g0/1
+sh int 
+sh int description
+
+sh ipv6 int 
+sh ipv6 int brief 
+sh ipv6 int g0/1
+sh ipv6 int g0/1 brief 
+sh ipv6 route connected 
